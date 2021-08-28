@@ -1,0 +1,15 @@
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\bin\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.deps.json
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\bin\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.runtimeconfig.json
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\bin\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.runtimeconfig.dev.json
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\bin\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.dll
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\bin\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.pdb
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\bin\Debug\netcoreapp3.1\ITJobSearch.Domain.dll
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\bin\Debug\netcoreapp3.1\ITJobSearch.Domain.pdb
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\obj\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\obj\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\obj\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.AssemblyInfo.cs
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\obj\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\obj\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.csproj.CopyComplete
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\obj\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.dll
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\obj\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.pdb
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Infrastructure\obj\Debug\netcoreapp3.1\ITJobSearch.Infrastructure.genruntimeconfig.cache

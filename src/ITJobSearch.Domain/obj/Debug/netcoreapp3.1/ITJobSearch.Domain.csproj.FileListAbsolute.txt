@@ -1,0 +1,12 @@
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\bin\Debug\netcoreapp3.1\ITJobSearch.Domain.deps.json
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\bin\Debug\netcoreapp3.1\ITJobSearch.Domain.runtimeconfig.json
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\bin\Debug\netcoreapp3.1\ITJobSearch.Domain.runtimeconfig.dev.json
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\bin\Debug\netcoreapp3.1\ITJobSearch.Domain.dll
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\bin\Debug\netcoreapp3.1\ITJobSearch.Domain.pdb
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\obj\Debug\netcoreapp3.1\ITJobSearch.Domain.AssemblyInfoInputs.cache
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\obj\Debug\netcoreapp3.1\ITJobSearch.Domain.AssemblyInfo.cs
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\obj\Debug\netcoreapp3.1\ITJobSearch.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\obj\Debug\netcoreapp3.1\ITJobSearch.Domain.dll
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\obj\Debug\netcoreapp3.1\ITJobSearch.Domain.pdb
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\obj\Debug\netcoreapp3.1\ITJobSearch.Domain.genruntimeconfig.cache
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.Domain\obj\Debug\netcoreapp3.1\ITJobSearch.Domain.csproj.AssemblyReference.cache
