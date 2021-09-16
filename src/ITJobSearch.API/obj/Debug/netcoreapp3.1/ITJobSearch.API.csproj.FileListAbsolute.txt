@@ -88,3 +88,9 @@ C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.API\bin\Debug\netcoreapp3
 C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.API\obj\Debug\netcoreapp3.1\ITJobSearch.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Kate\source\repos\ITJobSearch\src\ITJobSearch.API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll

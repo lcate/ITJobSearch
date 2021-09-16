@@ -1,12 +1,13 @@
 ﻿using ITJobSearch.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Reflection;
 
 namespace ITJobSearch.Infrastructure.Context
 {
     public class ITJobSearchDbContext : DbContext
     {
-        public ITJobSearchDbContext(DbContextOptions options) : base(options) { }
+        public ITJobSearchDbContext(DbContextOptions<ITJobSearchDbContext> options) : base(options) { }
 
         public DbSet<Company> Companies { get; set; }
         public DbSet<User> Users { get; set; }

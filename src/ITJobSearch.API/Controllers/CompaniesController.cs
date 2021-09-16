@@ -2,6 +2,7 @@
 using ITJobSearch.API.Controllers.Dtos;
 using ITJobSearch.Domain.Interfaces;
 using ITJobSearch.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
