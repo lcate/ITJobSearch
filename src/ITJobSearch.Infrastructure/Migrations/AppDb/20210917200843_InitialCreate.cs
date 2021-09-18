@@ -7,7 +7,7 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Company",
+                name: "Companies",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -19,9 +19,9 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Company", x => x.Id);
+                    table.PrimaryKey("PK_Companies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Company_AspNetUsers_UserId",
+                        name: "FK_Companies_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -29,7 +29,7 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "JobOffer",
+                name: "JobOffers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -42,17 +42,17 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobOffer", x => x.Id);
+                    table.PrimaryKey("PK_JobOffers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobOffer_Company_CompanyId",
+                        name: "FK_JobOffers_Company_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Company",
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Test",
+                name: "Tests",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -62,17 +62,17 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Test", x => x.Id);
+                    table.PrimaryKey("PK_Tests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Test_Company_CompanyId",
+                        name: "FK_Tests_Companies_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Company",
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "JobApplication",
+                name: "JobApplications",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -83,23 +83,23 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobApplication", x => x.Id);
+                    table.PrimaryKey("PK_JobApplications", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobApplication_AspNetUsers_UserId1",
+                        name: "FK_JobApplications_AspNetUsers_UserId1",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_JobApplication_JobOffer_JobOfferId",
+                        name: "FK_JobApplications_JobOffers_JobOfferId",
                         column: x => x.JobOfferId,
-                        principalTable: "JobOffer",
+                        principalTable: "JobOffers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTest",
+                name: "UserTests",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -110,23 +110,23 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTest", x => x.Id);
+                    table.PrimaryKey("PK_UserTests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserTest_AspNetUsers_UserId1",
+                        name: "FK_UserTests_AspNetUsers_UserId1",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserTest_Test_TestId",
+                        name: "FK_UserTests_Tests_TestId",
                         column: x => x.TestId,
-                        principalTable: "Test",
+                        principalTable: "Tests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -137,81 +137,81 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_AspNetUsers_UserId",
+                        name: "FK_Comments_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comment_JobApplication_JobApplicationId",
+                        name: "FK_Comments_JobApplications_JobApplicationId",
                         column: x => x.JobApplicationId,
-                        principalTable: "JobApplication",
+                        principalTable: "JobApplications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_JobApplicationId",
-                table: "Comment",
+                name: "IX_Comments_JobApplicationId",
+                table: "Comments",
                 column: "JobApplicationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_UserId",
-                table: "Comment",
+                name: "IX_Comments_UserId",
+                table: "Comments",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobApplication_JobOfferId",
-                table: "JobApplication",
+                name: "IX_JobApplications_JobOfferId",
+                table: "JobApplications",
                 column: "JobOfferId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobApplication_UserId",
-                table: "JobApplication",
+                name: "IX_JobApplications_UserId",
+                table: "JobApplications",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobOffer_CompanyId",
-                table: "JobOffer",
+                name: "IX_JobOffers_CompanyId",
+                table: "JobOffers",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Test_CompanyId",
-                table: "Test",
+                name: "IX_Tests_CompanyId",
+                table: "Tests",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTest_TestId",
-                table: "UserTest",
+                name: "IX_UserTests_TestId",
+                table: "UserTests",
                 column: "TestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTest_UserId",
-                table: "UserTest",
+                name: "IX_UserTests_UserId",
+                table: "UserTests",
                 column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "UserTest");
+                name: "UserTests");
 
             migrationBuilder.DropTable(
-                name: "JobApplication");
+                name: "JobApplications");
 
             migrationBuilder.DropTable(
-                name: "Test");
+                name: "Tests");
 
             migrationBuilder.DropTable(
-                name: "JobOffer");
+                name: "JobOffers");
 
             migrationBuilder.DropTable(
-                name: "Company");
+                name: "Companies");
         }
     }
 }
