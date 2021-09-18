@@ -34,19 +34,19 @@ namespace ITJobSearch.Infrastructure.Mappings
                 .IsRequired();
 
             // 1 : N => User : JobApplication
-            builder.HasMany(c => c.JobApplications)
-                .WithOne(b => b.User)
-                .HasForeignKey(b => b.UserId);
+            //builder.HasMany(c => c.JobApplications)
+            //    .WithOne(b => b.User)
+            //    .HasForeignKey(b => b.Id);
 
             // 1 : N => User : UserTest
-            builder.HasMany(c => c.UserTests)
-                .WithOne(b => b.User)
-                .HasForeignKey(b => b.UserId);
+            //builder.HasMany(c => c.UserTests)
+            //    .WithOne(b => b.User)
+            //    .HasForeignKey(b => b.Id);
 
             // 1 : N => User : Comment
-            builder.HasMany(c => c.Comments)
-                .WithOne(b => b.User)
-                .HasForeignKey(b => b.UserId);
+            //builder.HasMany(c => c.Comments)
+            //    .WithOne(b => b.User)
+            //    .HasForeignKey(b => b.Id);
 
             builder.ToTable("Users");
         }

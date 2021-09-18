@@ -12,7 +12,7 @@ namespace ITJobSearch.Domain.Models
 
         public string Logo { get; set; }
 
-        public IEnumerable<User> Users { get; set; }
+        public string UserId { get; set; }
 
         public IEnumerable<Test> Tests { get; set; }
 

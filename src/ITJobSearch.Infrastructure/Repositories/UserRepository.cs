@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace ITJobSearch.Infrastructure.Repositories
 {
-    public class UserRepository : Repository<User>, IUserRepository
-    {
-        public UserRepository(ITJobSearchDbContext context) : base(context) { }
+    //public class UserRepository : Repository<AppUser>, IUserRepository
+    //{
+    //    public UserRepository(ITJobSearchDbContext context) : base(context) { }
 
-    }
+    //}
 }

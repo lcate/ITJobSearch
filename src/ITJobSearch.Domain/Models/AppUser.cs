@@ -13,5 +13,11 @@ namespace ITJobSearch.Domain.Models
 
         public DateTime DateModified { get; set; }
 
+        public IEnumerable<JobApplication> JobApplications { get; set; }
+
+        public IEnumerable<UserTest> UserTests { get; set; }
+
+        public IEnumerable<Comment> Comments { get; set; }
+
     }
 }

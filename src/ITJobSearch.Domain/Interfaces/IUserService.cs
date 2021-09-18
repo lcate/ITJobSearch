@@ -8,10 +8,10 @@ namespace ITJobSearch.Domain.Interfaces
 {
     public interface IUserService : IDisposable
     {
-        Task<IEnumerable<User>> GetAll();
-        Task<User> GetById(int id);
-        Task<User> Add(User user);
-        Task<User> Update(User user);
-        Task<bool> Remove(User user);
+        Task<IEnumerable<AppUser>> GetAll();
+        Task<AppUser> GetById(int id);
+        Task<AppUser> Add(AppUser user);
+        Task<AppUser> Update(AppUser user);
+        Task<bool> Remove(AppUser user);
     }
 }

@@ -10,7 +10,8 @@ namespace ITJobSearch.Infrastructure.Context
         public ITJobSearchDbContext(DbContextOptions<ITJobSearchDbContext> options) : base(options) { }
 
         public DbSet<Company> Companies { get; set; }
-        public DbSet<User> Users { get; set; }
+
+        //public DbSet<User> Users { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<JobOffer> JobOffers { get; set; }
         public DbSet<Comment> Comments { get; set; }

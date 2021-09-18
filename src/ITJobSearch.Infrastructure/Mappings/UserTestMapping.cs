@@ -20,8 +20,6 @@ namespace ITJobSearch.Infrastructure.Mappings
             builder.Property(b => b.TestId)
                 .IsRequired();
 
-            builder.Property(b => b.UserId)
-                .IsRequired();
 
             builder.ToTable("UserTests");
         }

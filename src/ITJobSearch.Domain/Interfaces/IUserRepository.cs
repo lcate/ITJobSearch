@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ITJobSearch.Domain.Interfaces
 {
-    public interface IUserRepository : IRepository<User>
-    {
-        new Task<List<User>> GetAll();
+    //public interface IUserRepository : IRepository<AppUser>
+    //{
+    //    new Task<List<AppUser>> GetAll();
 
-        new Task<User> GetById(int id);
-    }
+    //    new Task<AppUser> GetById(int id);
+    //}
 }

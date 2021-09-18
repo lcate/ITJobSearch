@@ -25,15 +25,19 @@ namespace ITJobSearch.Infrastructure.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(100)");
 
+            builder.Property(c => c.UserId)
+                .IsRequired()
+                .HasColumnType("varchar(100)");
+
             // 1 : N => Company : Users
-            builder.HasMany(c => c.Users)
-                   .WithOne(b => b.Company)
-                   .HasForeignKey(b => b.CompanyId);
+            //builder.HasMany(c => c.Users)
+            //       .WithOne(b => b.Company)
+            //       .HasForeignKey(b => b.CompanyId);
 
             // 1 : N => Company : JobOffer
-            builder.HasMany(c => c.JobOffers)
-                   .WithOne(b => b.Company)
-                   .HasForeignKey(b => b.CompanyId);
+            //builder.HasMany(c => c.JobOffers)
+            //       .WithOne(b => b.Company)
+            //       .HasForeignKey(b => b.CompanyId);
 
             // 1 : N => Company : Test
             builder.HasMany(c => c.Tests)

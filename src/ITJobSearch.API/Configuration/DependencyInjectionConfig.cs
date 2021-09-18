@@ -17,7 +17,6 @@ namespace ITJobSearch.API.Configuration
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserTestRepository, UserTestRepository>();
             services.AddScoped<ITestRepository, TestRepository>();
 
@@ -26,7 +25,6 @@ namespace ITJobSearch.API.Configuration
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IJobApplicationService, JobApplicationService>();
             services.AddScoped<IUserTestService, UserTestService>();
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITestService, TestService>();
 
             return services;

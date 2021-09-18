@@ -12,7 +12,7 @@ namespace ITJobSearch.Domain.Models
 
         public int JobOfferId { get; set; }
 
-        public User User { get; set; }
+        public AppUser User { get; set; }
 
         public JobOffer JobOffer { get; set; }
 

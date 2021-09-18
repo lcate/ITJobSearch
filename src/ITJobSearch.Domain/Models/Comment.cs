@@ -8,9 +8,7 @@ namespace ITJobSearch.Domain.Models
     {
         public string Message { get; set; }
 
-        public int UserId { get; set; }
-
-        public User User { get; set; }
+        public AppUser User { get; set; }
 
         public int JobApplicationId { get; set; }
 
