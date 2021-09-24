@@ -11,9 +11,11 @@ namespace ITJobSearch.API.Controllers.Dtos
         [Required(ErrorMessage = "The field {0} is required")]
         public string Name { get; set; }
 
-        public string URL { get; set; }
+        public string WebURL { get; set; }
 
         public string Logo { get; set; }
+
+        public string UserId { get; set; }
 
     }
 }

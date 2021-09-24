@@ -54,7 +54,7 @@ namespace ITJobSearch.Domain.Services
 
         public async Task<Company> Update(Company company)
         {
-            if (_companyRepository.Search(c => c.Name == company.Name && c.Id != company.Id).Result.Any())
+            if (!_companyRepository.Search(c => c.Name == company.Name && c.Id != company.Id).Result.Any())
                 return null;
 
             await _companyRepository.Update(company);

@@ -14,6 +14,8 @@ namespace ITJobSearch.Domain.Models
 
         public string WorkHours { get; set; }
 
+        public int CompanyId { get; set; }
+
         public Company Company { get; set; }
 
         public IEnumerable<JobApplication> JobApplications { get; set; }

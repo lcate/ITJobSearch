@@ -14,6 +14,8 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     WebURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Linkedin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AboutUs = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Logo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -44,7 +46,7 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                 {
                     table.PrimaryKey("PK_JobOffers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobOffers_Company_CompanyId",
+                        name: "FK_JobOffers_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",

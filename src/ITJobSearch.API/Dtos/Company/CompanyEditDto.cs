@@ -17,5 +17,7 @@ namespace ITJobSearch.API.Controllers.Dtos
         public string URL { get; set; }
 
         public string Logo { get; set; }
+
+        public string UserId { get; set; }
     }
 }

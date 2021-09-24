@@ -29,6 +29,9 @@ namespace ITJobSearch.Infrastructure.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(100)");
 
+            builder.Property(c => c.CompanyId)
+                .IsRequired()
+                .HasColumnType("int");
 
             // 1 : N => JobOffer : JobApplication
             builder.HasMany(c => c.JobApplications)

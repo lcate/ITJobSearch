@@ -39,7 +39,7 @@ namespace ITJobSearch.API.Controllers
 
             if (company == null) return NotFound();
 
-            return Ok(_mapper.Map<CompanyResultDto>(company));
+            return Ok(company);
         }
 
         [HttpPost]

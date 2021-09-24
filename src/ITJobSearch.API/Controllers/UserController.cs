@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using ITJobSearch.API.Controllers.Dtos;
 using ITJobSearch.API.Enums;
 using ITJobSearch.API.Model;
 using ITJobSearch.API.Model.BindingModel;
 using ITJobSearch.API.Model.DTO;
+using ITJobSearch.Domain.Interfaces;
 using ITJobSearch.Domain.Models;
+using ITJobSearch.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -37,12 +40,15 @@ namespace ITJobSearch.API.Controllers
 
         private readonly IMapper _mapper;
 
+        private ICompanyRepository _companiesController;
+
         public UserController(ILogger<UserController> logger,
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager, 
             IOptions<JWTConfig> jwtConfig, 
             RoleManager<IdentityRole> roleManager,
-            IMapper mapper)
+            IMapper mapper,
+            ICompanyRepository companiesController)
         {
             _logger = logger;
             _userManager = userManager;
@@ -50,6 +56,7 @@ namespace ITJobSearch.API.Controllers
             _jWTConfig = jwtConfig.Value;
             _roleManager = roleManager;
             _mapper = mapper;
+            _companiesController = companiesController;
         }
 
 
@@ -69,7 +76,16 @@ namespace ITJobSearch.API.Controllers
                 {
                     var tempUser = await _userManager.FindByEmailAsync(model.Email);
                     await _userManager.AddToRoleAsync(tempUser, model.Role);
+                    var companyToAdd = new Company();
+                    if (model.Role == "Company")
+                    {
+                        companyToAdd = new Company() { Name = model.FullName, WebURL = model.WebURL, Logo = model.Logo, UserId = tempUser.Id };
+                        companyToAdd.Linkedin = model.Linkedin;
+                        companyToAdd.AboutUs = model.AboutUs;
+                        await _companiesController.Add(companyToAdd);
+                    }
                     var userResult = new UserDTO(model.FullName, model.Email, model.Email, DateTime.UtcNow, model.Role);
+                    userResult.CompanyId = companyToAdd.Id;
                     return await Task.FromResult(new ResponseModel(ResponseCode.OK, "User has been registered.", userResult));
                 }
 
@@ -103,6 +119,14 @@ namespace ITJobSearch.API.Controllers
             }
         }
 
+        [HttpGet("getuser/{email}")]
+        public async Task<IActionResult> GetByEmail(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null) return NotFound();
+
+            return Ok(user);
+        }
 
         [HttpPost("login")]
         public async Task<object> Login([FromBody] LoginModel model)
@@ -114,10 +138,15 @@ namespace ITJobSearch.API.Controllers
                     var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
                     if (result.Succeeded)
                     {
-                        var appUser = await _userManager.FindByEmailAsync(model.Email);
-                        var role = (await _userManager.GetRolesAsync(appUser)).FirstOrDefault();
-                        var user = new UserDTO(appUser.FullName, appUser.Email, appUser.UserName, appUser.DateCreated, role);
-                        user.Token = GenerateToken(appUser, role); 
+                        AppUser appUser = await _userManager.FindByEmailAsync(model.Email);
+                        string role = (await _userManager.GetRolesAsync(appUser)).FirstOrDefault();
+                        UserDTO user = new UserDTO(appUser.FullName, appUser.Email, appUser.UserName, appUser.DateCreated, role);
+                        user.Token = GenerateToken(appUser, role);
+                        if (role == "Company")
+                        {
+                            var company = await _companiesController.GetCompanyId(appUser.Id);
+                            user.CompanyId = company.Id;
+                        }
                         return await Task.FromResult(new ResponseModel(ResponseCode.OK, "", user));
                     }
                 }

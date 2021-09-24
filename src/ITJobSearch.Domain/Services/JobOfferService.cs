@@ -49,7 +49,7 @@ namespace ITJobSearch.Domain.Services
 
         public async Task<JobOffer> Update(JobOffer jobOffer)
         {
-            if (_jobOfferRepository.Search(c => c.Id == jobOffer.Id).Result.Any())
+            if (!_jobOfferRepository.Search(c => c.Id == jobOffer.Id).Result.Any())
                 return null;
 
             await _jobOfferRepository.Update(jobOffer);

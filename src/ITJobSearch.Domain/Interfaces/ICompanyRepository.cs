@@ -11,5 +11,7 @@ namespace ITJobSearch.Domain.Interfaces
         new Task<List<Company>> GetAll();
 
         new Task<Company> GetById(int id);
+
+        Task<Company> GetCompanyId(string id);
     }
 }

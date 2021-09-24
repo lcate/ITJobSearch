@@ -29,6 +29,14 @@ namespace ITJobSearch.Infrastructure.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(100)");
 
+            builder.Property(c => c.Linkedin)
+                .IsRequired()
+                .HasColumnType("varchar(200)");
+
+            builder.Property(c => c.AboutUs)
+                .IsRequired()
+                .HasColumnType("varchar(500)");
+
             // 1 : N => Company : Users
             //builder.HasMany(c => c.Users)
             //       .WithOne(b => b.Company)

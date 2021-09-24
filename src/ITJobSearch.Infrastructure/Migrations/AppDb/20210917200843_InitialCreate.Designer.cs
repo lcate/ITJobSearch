@@ -142,6 +142,12 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                     b.Property<string>("WebURL")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Linkedin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AboutUs")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Company");
