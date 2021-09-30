@@ -20,6 +20,10 @@ namespace ITJobSearch.Infrastructure.Mappings
             builder.Property(b => b.TestId)
                 .IsRequired();
 
+            builder.Property(b => b.UserId)
+                .IsRequired()
+                .HasColumnType("varchar(450)");
+
 
             builder.ToTable("UserTests");
         }

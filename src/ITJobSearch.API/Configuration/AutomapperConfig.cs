@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ITJobSearch.API.Controllers.Dtos;
+using ITJobSearch.API.Dtos;
 using ITJobSearch.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,9 @@ namespace ITJobSearch.API.Configuration
             CreateMap<Comment, CommentAddDto>().ReverseMap();
             CreateMap<Comment, CommentEditDto>().ReverseMap();
             CreateMap<Comment, CommentResultDto>().ReverseMap();
+
+            CreateMap<JobApplication, JobApplicationDto>().ReverseMap();
+            CreateMap<JobApplication, JobApplicationAddDto>().ReverseMap();
         }
     }
 }

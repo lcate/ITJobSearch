@@ -15,7 +15,11 @@ namespace ITJobSearch.Infrastructure.Mappings
 
             builder.Property(c => c.Message)
                 .IsRequired()
-                .HasColumnType("varchar(250)");
+                .HasColumnType("varchar(500)");
+
+            builder.Property(b => b.UserId)
+                .IsRequired()
+                .HasColumnType("varchar(450)");
 
             builder.Property(b => b.JobApplicationId)
                 .IsRequired();

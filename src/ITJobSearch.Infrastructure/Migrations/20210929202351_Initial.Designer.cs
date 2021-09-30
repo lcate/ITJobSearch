@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ITJobSearch.Infrastructure.Migrations.AppDb
+namespace ITJobSearch.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210917200843_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210929202351_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,9 +108,6 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -120,15 +117,21 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.Company", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.Companies", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AboutUs")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Linkedin")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
@@ -137,23 +140,19 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("WebURL")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Linkedin")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AboutUs")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Company");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.JobApplication", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.JobApplications", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,9 +165,6 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -178,7 +174,7 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("JobApplication");
+                    b.ToTable("JobApplications");
                 });
 
             modelBuilder.Entity("ITJobSearch.Domain.Models.JobOffer", b =>
@@ -207,10 +203,10 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("JobOffer");
+                    b.ToTable("JobOffers");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.Test", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.Tests", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -227,10 +223,10 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Test");
+                    b.ToTable("Tests");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.UserTest", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.UserTests", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,9 +239,6 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                     b.Property<int>("TestId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -255,7 +248,7 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserTest");
+                    b.ToTable("UserTests");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -389,9 +382,9 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.Comment", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.Comments", b =>
                 {
-                    b.HasOne("ITJobSearch.Domain.Models.JobApplication", "JobApplication")
+                    b.HasOne("ITJobSearch.Domain.Models.JobApplications", "JobApplications")
                         .WithMany("Comments")
                         .HasForeignKey("JobApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -401,14 +394,23 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                         .WithMany("Comments")
                         .HasForeignKey("UserId");
 
-                    b.Navigation("JobApplication");
+                    b.Navigation("JobApplications");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.JobApplication", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.Companies", b =>
                 {
-                    b.HasOne("ITJobSearch.Domain.Models.JobOffer", "JobOffer")
+                    b.HasOne("ITJobSearch.Domain.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ITJobSearch.Domain.Models.JobApplications", b =>
+                {
+                    b.HasOne("ITJobSearch.Domain.Models.JobOffers", "JobOffers")
                         .WithMany("JobApplications")
                         .HasForeignKey("JobOfferId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -418,36 +420,36 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                         .WithMany("JobApplications")
                         .HasForeignKey("UserId");
 
-                    b.Navigation("JobOffer");
+                    b.Navigation("JobOffers");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.JobOffer", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.JobOffers", b =>
                 {
-                    b.HasOne("ITJobSearch.Domain.Models.Company", "Company")
+                    b.HasOne("ITJobSearch.Domain.Models.Companies", "Companies")
                         .WithMany("JobOffers")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("Companies");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.Test", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.Tests", b =>
                 {
-                    b.HasOne("ITJobSearch.Domain.Models.Company", "Company")
+                    b.HasOne("ITJobSearch.Domain.Models.Companies", "Companies")
                         .WithMany("Tests")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("Companies");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.UserTest", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.UserTests", b =>
                 {
-                    b.HasOne("ITJobSearch.Domain.Models.Test", "Test")
+                    b.HasOne("ITJobSearch.Domain.Models.Tests", "Tests")
                         .WithMany("UserTests")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -457,7 +459,7 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                         .WithMany("UserTests")
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Test");
+                    b.Navigation("Tests");
 
                     b.Navigation("User");
                 });
@@ -522,24 +524,24 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                     b.Navigation("UserTests");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.Company", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.Companies", b =>
                 {
                     b.Navigation("JobOffers");
 
                     b.Navigation("Tests");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.JobApplication", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.JobApplications", b =>
                 {
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.JobOffer", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.JobOffers", b =>
                 {
                     b.Navigation("JobApplications");
                 });
 
-            modelBuilder.Entity("ITJobSearch.Domain.Models.Test", b =>
+            modelBuilder.Entity("ITJobSearch.Domain.Models.Tests", b =>
                 {
                     b.Navigation("UserTests");
                 });

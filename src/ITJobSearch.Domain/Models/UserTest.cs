@@ -10,6 +10,8 @@ namespace ITJobSearch.Domain.Models
 
         public int TestId { get; set; }
 
+        public string UserId { get; set; }
+
         public Test Test { get; set; }
 
         public AppUser User { get; set; }

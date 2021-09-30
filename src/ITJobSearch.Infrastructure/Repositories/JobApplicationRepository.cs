@@ -14,5 +14,20 @@ namespace ITJobSearch.Infrastructure.Repositories
     {
         public JobApplicationRepository(ITJobSearchDbContext context) : base(context) { }
 
+        public override async Task<List<JobApplication>> GetAll()
+        {
+            var jobApplications = await Db.JobApplications.Include(b => b.JobOffer)
+                .OrderBy(c => c.Id)
+                .ToListAsync();
+            return jobApplications;
+        }
+
+        public override async Task<JobApplication> GetById(int id)
+        {
+            var k = await Db.JobApplications.Include(b => b.JobOffer)
+                .Where(b => b.Id == id)
+                .FirstOrDefaultAsync();
+            return k;
+        }
     }
 }

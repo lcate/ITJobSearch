@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[3.1.16, )"
             },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.9, )"
@@ -136,6 +140,10 @@
               "target": "Package",
               "version": "[3.1.16, )"
             },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.9, )"
@@ -159,6 +167,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.9, )"
+            },
+            "foolproof": {
+              "target": "Package",
+              "version": "[0.9.4518, )"
             }
           },
           "imports": [

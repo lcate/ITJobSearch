@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ITJobSearch.Infrastructure.Migrations.AppDb
+namespace ITJobSearch.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -106,9 +106,6 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -128,6 +125,12 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AboutUs")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Linkedin")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
@@ -135,18 +138,14 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("WebURL")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Linkedin")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AboutUs")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Company");
                 });
@@ -162,9 +161,6 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -239,9 +235,6 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TestId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -400,6 +393,15 @@ namespace ITJobSearch.Infrastructure.Migrations.AppDb
                         .HasForeignKey("UserId");
 
                     b.Navigation("JobApplication");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ITJobSearch.Domain.Models.Company", b =>
+                {
+                    b.HasOne("ITJobSearch.Domain.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });

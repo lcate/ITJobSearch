@@ -40,7 +40,7 @@ namespace ITJobSearch.API.Controllers
 
         private readonly IMapper _mapper;
 
-        private ICompanyRepository _companiesController;
+        private ICompanyService _companiesService;
 
         public UserController(ILogger<UserController> logger,
             UserManager<AppUser> userManager,
@@ -48,7 +48,7 @@ namespace ITJobSearch.API.Controllers
             IOptions<JWTConfig> jwtConfig, 
             RoleManager<IdentityRole> roleManager,
             IMapper mapper,
-            ICompanyRepository companiesController)
+            ICompanyService companiesService)
         {
             _logger = logger;
             _userManager = userManager;
@@ -56,7 +56,7 @@ namespace ITJobSearch.API.Controllers
             _jWTConfig = jwtConfig.Value;
             _roleManager = roleManager;
             _mapper = mapper;
-            _companiesController = companiesController;
+            _companiesService = companiesService;
         }
 
 
@@ -76,13 +76,13 @@ namespace ITJobSearch.API.Controllers
                 {
                     var tempUser = await _userManager.FindByEmailAsync(model.Email);
                     await _userManager.AddToRoleAsync(tempUser, model.Role);
-                    var companyToAdd = new Company();
+                    Company companyToAdd = new Company();
                     if (model.Role == "Company")
                     {
                         companyToAdd = new Company() { Name = model.FullName, WebURL = model.WebURL, Logo = model.Logo, UserId = tempUser.Id };
                         companyToAdd.Linkedin = model.Linkedin;
                         companyToAdd.AboutUs = model.AboutUs;
-                        await _companiesController.Add(companyToAdd);
+                        await _companiesService.Add(companyToAdd);
                     }
                     var userResult = new UserDTO(model.FullName, model.Email, model.Email, DateTime.UtcNow, model.Role);
                     userResult.CompanyId = companyToAdd.Id;
@@ -144,7 +144,7 @@ namespace ITJobSearch.API.Controllers
                         user.Token = GenerateToken(appUser, role);
                         if (role == "Company")
                         {
-                            var company = await _companiesController.GetCompanyId(appUser.Id);
+                            var company = await _companiesService.GetCompanyId(appUser.Id);
                             user.CompanyId = company.Id;
                         }
                         return await Task.FromResult(new ResponseModel(ResponseCode.OK, "", user));

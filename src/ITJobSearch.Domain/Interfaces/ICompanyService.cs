@@ -14,5 +14,6 @@ namespace ITJobSearch.Domain.Interfaces
         Task<Company> Update(Company company);
         Task<bool> Remove(Company company);
         Task<IEnumerable<Company>> Search(string companyName);
+        Task<Company> GetCompanyId(string id);
     }
 }

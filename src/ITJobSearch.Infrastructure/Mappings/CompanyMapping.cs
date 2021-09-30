@@ -15,23 +15,23 @@ namespace ITJobSearch.Infrastructure.Mappings
 
             builder.Property(c => c.Name)
                 .IsRequired()
-                .HasColumnType("varchar(100)");
+                .HasColumnType("varchar(150)");
 
             builder.Property(c => c.WebURL)
                 .IsRequired()
-                .HasColumnType("varchar(100)");
+                .HasColumnType("varchar(500)");
 
             builder.Property(c => c.Logo)
                 .IsRequired()
-                .HasColumnType("varchar(100)");
+                .HasColumnType("varchar(500)");
 
             builder.Property(c => c.UserId)
                 .IsRequired()
-                .HasColumnType("varchar(100)");
+                .HasColumnType("varchar(450)");
 
             builder.Property(c => c.Linkedin)
                 .IsRequired()
-                .HasColumnType("varchar(200)");
+                .HasColumnType("varchar(300)");
 
             builder.Property(c => c.AboutUs)
                 .IsRequired()

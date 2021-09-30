@@ -18,6 +18,8 @@ namespace ITJobSearch.Domain.Models
 
         public string UserId { get; set; }
 
+        public AppUser User { get; set; }
+
         public IEnumerable<Test> Tests { get; set; }
 
         public IEnumerable<JobOffer> JobOffers { get; set; }

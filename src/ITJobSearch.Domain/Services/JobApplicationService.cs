@@ -17,34 +17,43 @@ namespace ITJobSearch.Domain.Services
             _jobApplicationRepository = jobApplicationRepository;
         }
 
-        public Task<JobApplication> Add(JobApplication jobApplication)
+        public async Task<JobApplication> Add(JobApplication jobApplication)
         {
-            throw new NotImplementedException();
+            if (_jobApplicationRepository.Search(c => c.Id == jobApplication.Id).Result.Any())
+                return null;
+
+            await _jobApplicationRepository.Add(jobApplication);
+            return jobApplication;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _jobApplicationRepository?.Dispose();
         }
 
-        public Task<IEnumerable<JobApplication>> GetAll()
+        public async Task<IEnumerable<JobApplication>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _jobApplicationRepository.GetAll();
         }
 
-        public Task<JobApplication> GetById(int id)
+        public async Task<JobApplication> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _jobApplicationRepository.GetById(id);
         }
 
-        public Task<bool> Remove(JobApplication jobApplication)
+        public async Task<bool> Remove(JobApplication jobApplication)
         {
-            throw new NotImplementedException();
+            await _jobApplicationRepository.Remove(jobApplication);
+            return true;
         }
 
-        public Task<JobApplication> Update(JobApplication jobApplication)
+        public async Task<JobApplication> Update(JobApplication jobApplication)
         {
-            throw new NotImplementedException();
+            if (!_jobApplicationRepository.Search(c => c.Id == jobApplication.Id).Result.Any())
+                return null;
+
+            await _jobApplicationRepository.Update(jobApplication);
+            return jobApplication;
         }
     }
 }

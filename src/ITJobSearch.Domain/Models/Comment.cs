@@ -8,6 +8,8 @@ namespace ITJobSearch.Domain.Models
     {
         public string Message { get; set; }
 
+        public string UserId { get; set; }
+
         public AppUser User { get; set; }
 
         public int JobApplicationId { get; set; }

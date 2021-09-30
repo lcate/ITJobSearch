@@ -8,7 +8,7 @@ namespace ITJobSearch.Domain.Models
     {
         public int Status { get; set; } //enum
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public int JobOfferId { get; set; }
 

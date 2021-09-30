@@ -60,5 +60,11 @@ namespace ITJobSearch.Domain.Services
             await _companyRepository.Update(company);
             return company;
         }
+
+        public async Task<Company> GetCompanyId(string userId)
+        {
+            var company = await _companyRepository.GetCompanyId(userId);
+            return company;
+        }
     }
 }

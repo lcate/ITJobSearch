@@ -44,6 +44,10 @@ namespace ITJobSearch.API
             });
             services.AddIdentity<AppUser, IdentityRole>(opt => { }).AddEntityFrameworkStores<AppDbContext>();
 
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -1,11 +1,40 @@
-﻿//using Microsoft.EntityFrameworkCore.Migrations;
+﻿//using System;
+//using Microsoft.EntityFrameworkCore.Migrations;
 
-//namespace ITJobSearch.Infrastructure.Migrations
+//namespace ITJobSearch.Infrastructure.Migrations.ITJobSearchDb
 //{
-//    public partial class InitialCreate : Migration
+//    public partial class Initial : Migration
 //    {
 //        protected override void Up(MigrationBuilder migrationBuilder)
 //        {
+//            migrationBuilder.CreateTable(
+//                name: "AppUser",
+//                columns: table => new
+//                {
+//                    Id = table.Column<string>(type: "varchar(150)", nullable: false),
+//                    FullName = table.Column<string>(type: "varchar(150)", nullable: true),
+//                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+//                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: false),
+//                    UserName = table.Column<string>(type: "varchar(150)", nullable: true),
+//                    NormalizedUserName = table.Column<string>(type: "varchar(150)", nullable: true),
+//                    Email = table.Column<string>(type: "varchar(150)", nullable: true),
+//                    NormalizedEmail = table.Column<string>(type: "varchar(150)", nullable: true),
+//                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+//                    PasswordHash = table.Column<string>(type: "varchar(150)", nullable: true),
+//                    SecurityStamp = table.Column<string>(type: "varchar(150)", nullable: true),
+//                    ConcurrencyStamp = table.Column<string>(type: "varchar(150)", nullable: true),
+//                    PhoneNumber = table.Column<string>(type: "varchar(150)", nullable: true),
+//                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+//                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+//                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+//                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+//                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+//                },
+//                constraints: table =>
+//                {
+//                    table.PrimaryKey("PK_AppUser", x => x.Id);
+//                });
+
 //            migrationBuilder.CreateTable(
 //                name: "Companies",
 //                columns: table => new
@@ -14,11 +43,20 @@
 //                        .Annotation("SqlServer:Identity", "1, 1"),
 //                    Name = table.Column<string>(type: "varchar(100)", nullable: false),
 //                    WebURL = table.Column<string>(type: "varchar(100)", nullable: false),
-//                    Logo = table.Column<string>(type: "varchar(100)", nullable: false)
+//                    Linkedin = table.Column<string>(type: "varchar(200)", nullable: false),
+//                    AboutUs = table.Column<string>(type: "varchar(500)", nullable: false),
+//                    Logo = table.Column<string>(type: "varchar(100)", nullable: false),
+//                    UserId = table.Column<string>(type: "varchar(450)", nullable: false)
 //                },
 //                constraints: table =>
 //                {
 //                    table.PrimaryKey("PK_Companies", x => x.Id);
+//                    table.ForeignKey(
+//                        name: "FK_Companies_AppUser_UserId",
+//                        column: x => x.UserId,
+//                        principalTable: "AppUser",
+//                        principalColumn: "Id",
+//                        onDelete: ReferentialAction.Restrict);
 //                });
 
 //            migrationBuilder.CreateTable(
@@ -65,51 +103,28 @@
 //                });
 
 //            migrationBuilder.CreateTable(
-//                name: "Users",
-//                columns: table => new
-//                {
-//                    Id = table.Column<int>(type: "int", nullable: false)
-//                        .Annotation("SqlServer:Identity", "1, 1"),
-//                    Name = table.Column<string>(type: "varchar(100)", nullable: false),
-//                    Email = table.Column<string>(type: "varchar(100)", nullable: false),
-//                    Password = table.Column<string>(type: "varchar(100)", nullable: false),
-//                    Type = table.Column<int>(type: "int", nullable: false),
-//                    CompanyId = table.Column<int>(type: "int", nullable: false)
-//                },
-//                constraints: table =>
-//                {
-//                    table.PrimaryKey("PK_Users", x => x.Id);
-//                    table.ForeignKey(
-//                        name: "FK_Users_Companies_CompanyId",
-//                        column: x => x.CompanyId,
-//                        principalTable: "Companies",
-//                        principalColumn: "Id",
-//                        onDelete: ReferentialAction.Restrict);
-//                });
-
-//            migrationBuilder.CreateTable(
 //                name: "JobApplications",
 //                columns: table => new
 //                {
 //                    Id = table.Column<int>(type: "int", nullable: false)
 //                        .Annotation("SqlServer:Identity", "1, 1"),
 //                    Status = table.Column<int>(type: "int", nullable: false),
-//                    UserId = table.Column<int>(type: "int", nullable: false),
+//                    UserId = table.Column<string>(type: "varchar(450)", nullable: false),
 //                    JobOfferId = table.Column<int>(type: "int", nullable: false)
 //                },
 //                constraints: table =>
 //                {
 //                    table.PrimaryKey("PK_JobApplications", x => x.Id);
 //                    table.ForeignKey(
-//                        name: "FK_JobApplications_JobOffers_JobOfferId",
-//                        column: x => x.JobOfferId,
-//                        principalTable: "JobOffers",
+//                        name: "FK_JobApplications_AppUser_UserId",
+//                        column: x => x.UserId,
+//                        principalTable: "AppUser",
 //                        principalColumn: "Id",
 //                        onDelete: ReferentialAction.Restrict);
 //                    table.ForeignKey(
-//                        name: "FK_JobApplications_Users_UserId",
-//                        column: x => x.UserId,
-//                        principalTable: "Users",
+//                        name: "FK_JobApplications_JobOffers_JobOfferId",
+//                        column: x => x.JobOfferId,
+//                        principalTable: "JobOffers",
 //                        principalColumn: "Id",
 //                        onDelete: ReferentialAction.Restrict);
 //                });
@@ -122,21 +137,21 @@
 //                        .Annotation("SqlServer:Identity", "1, 1"),
 //                    Feedback = table.Column<string>(type: "varchar(250)", nullable: false),
 //                    TestId = table.Column<int>(type: "int", nullable: false),
-//                    UserId = table.Column<int>(type: "int", nullable: false)
+//                    UserId = table.Column<string>(type: "varchar(450)", nullable: false)
 //                },
 //                constraints: table =>
 //                {
 //                    table.PrimaryKey("PK_UserTests", x => x.Id);
 //                    table.ForeignKey(
-//                        name: "FK_UserTests_Tests_TestId",
-//                        column: x => x.TestId,
-//                        principalTable: "Tests",
+//                        name: "FK_UserTests_AppUser_UserId",
+//                        column: x => x.UserId,
+//                        principalTable: "AppUser",
 //                        principalColumn: "Id",
 //                        onDelete: ReferentialAction.Restrict);
 //                    table.ForeignKey(
-//                        name: "FK_UserTests_Users_UserId",
-//                        column: x => x.UserId,
-//                        principalTable: "Users",
+//                        name: "FK_UserTests_Tests_TestId",
+//                        column: x => x.TestId,
+//                        principalTable: "Tests",
 //                        principalColumn: "Id",
 //                        onDelete: ReferentialAction.Restrict);
 //                });
@@ -148,22 +163,22 @@
 //                    Id = table.Column<int>(type: "int", nullable: false)
 //                        .Annotation("SqlServer:Identity", "1, 1"),
 //                    Message = table.Column<string>(type: "varchar(250)", nullable: false),
-//                    UserId = table.Column<int>(type: "int", nullable: false),
+//                    UserId = table.Column<string>(type: "varchar(450)", nullable: false),
 //                    JobApplicationId = table.Column<int>(type: "int", nullable: false)
 //                },
 //                constraints: table =>
 //                {
 //                    table.PrimaryKey("PK_Comments", x => x.Id);
 //                    table.ForeignKey(
-//                        name: "FK_Comments_JobApplications_JobApplicationId",
-//                        column: x => x.JobApplicationId,
-//                        principalTable: "JobApplications",
+//                        name: "FK_Comments_AppUser_UserId",
+//                        column: x => x.UserId,
+//                        principalTable: "AppUser",
 //                        principalColumn: "Id",
 //                        onDelete: ReferentialAction.Restrict);
 //                    table.ForeignKey(
-//                        name: "FK_Comments_Users_UserId",
-//                        column: x => x.UserId,
-//                        principalTable: "Users",
+//                        name: "FK_Comments_JobApplications_JobApplicationId",
+//                        column: x => x.JobApplicationId,
+//                        principalTable: "JobApplications",
 //                        principalColumn: "Id",
 //                        onDelete: ReferentialAction.Restrict);
 //                });
@@ -176,6 +191,11 @@
 //            migrationBuilder.CreateIndex(
 //                name: "IX_Comments_UserId",
 //                table: "Comments",
+//                column: "UserId");
+
+//            migrationBuilder.CreateIndex(
+//                name: "IX_Companies_UserId",
+//                table: "Companies",
 //                column: "UserId");
 
 //            migrationBuilder.CreateIndex(
@@ -196,11 +216,6 @@
 //            migrationBuilder.CreateIndex(
 //                name: "IX_Tests_CompanyId",
 //                table: "Tests",
-//                column: "CompanyId");
-
-//            migrationBuilder.CreateIndex(
-//                name: "IX_Users_CompanyId",
-//                table: "Users",
 //                column: "CompanyId");
 
 //            migrationBuilder.CreateIndex(
@@ -232,10 +247,10 @@
 //                name: "JobOffers");
 
 //            migrationBuilder.DropTable(
-//                name: "Users");
+//                name: "Companies");
 
 //            migrationBuilder.DropTable(
-//                name: "Companies");
+//                name: "AppUser");
 //        }
 //    }
 //}
