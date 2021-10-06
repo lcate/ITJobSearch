@@ -41,6 +41,11 @@ namespace ITJobSearch.Domain.Services
             return await _jobApplicationRepository.GetById(id);
         }
 
+        public async Task<List<JobApplication>> GetByUserId(string id)
+        {
+            return await _jobApplicationRepository.GetByUserId(id);
+        }
+
         public async Task<bool> Remove(JobApplication jobApplication)
         {
             await _jobApplicationRepository.Remove(jobApplication);

@@ -15,6 +15,10 @@ using ITJobSearch.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using ITJobSearch.API.Model;
 using System;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace ITJobSearch.API
 {
@@ -70,6 +74,13 @@ namespace ITJobSearch.API
                 };
             });
 
+            // for uploading file - To avoid the MultiPartBodyLength error
+            services.Configure<FormOptions>(o => {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
+
             services.AddCors();
 
             services.AddAutoMapper(typeof(Startup));
@@ -116,6 +127,13 @@ namespace ITJobSearch.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
 
+            // servable for the client applications
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"StaticFiles")),
+                RequestPath = new PathString("/StaticFiles")
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

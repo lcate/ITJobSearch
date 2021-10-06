@@ -10,5 +10,7 @@ namespace ITJobSearch.API.Dtos
         public int JobOfferId { get; set; }
 
         public string UserEmail { get; set; }
+
+        public string ImgPath { get; set; }
     }
 }

@@ -230,7 +230,8 @@ namespace ITJobSearch.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Status = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    JobOfferId = table.Column<int>(type: "int", nullable: false)
+                    JobOfferId = table.Column<int>(type: "int", nullable: false),
+                    ImgPath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

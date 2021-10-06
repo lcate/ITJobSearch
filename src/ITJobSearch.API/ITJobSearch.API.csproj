@@ -32,4 +32,8 @@
     <ProjectReference Include="..\ITJobSearch.Infrastructure\ITJobSearch.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="StaticFiles\Images\" />
+  </ItemGroup>
+
 </Project>

@@ -12,6 +12,8 @@ namespace ITJobSearch.Domain.Models
 
         public int JobOfferId { get; set; }
 
+        public string ImgPath { get; set; }
+
         public AppUser User { get; set; }
 
         public JobOffer JobOffer { get; set; }

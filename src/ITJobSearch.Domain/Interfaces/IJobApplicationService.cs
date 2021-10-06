@@ -13,5 +13,6 @@ namespace ITJobSearch.Domain.Interfaces
         Task<JobApplication> Add(JobApplication jobApplication);
         Task<JobApplication> Update(JobApplication jobApplication);
         Task<bool> Remove(JobApplication jobApplication);
+        Task<List<JobApplication>> GetByUserId(string id);
     }
 }

@@ -29,5 +29,13 @@ namespace ITJobSearch.Infrastructure.Repositories
                 .FirstOrDefaultAsync();
             return k;
         }
+
+        public async Task<List<JobApplication>> GetByUserId(string id)
+        {
+            var k = await Db.JobApplications
+                .Where(b => b.UserId == id)
+                .ToListAsync();
+            return k;
+        }
     }
 }

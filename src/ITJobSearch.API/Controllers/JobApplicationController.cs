@@ -57,6 +57,7 @@ namespace ITJobSearch.API.Controllers
             var jobApplication1 = new JobApplicationAddDto();
             jobApplication1.JobOfferId = jobApplicationDto.JobOfferId;
             jobApplication1.UserId = tempUser.Id;
+            jobApplication1.ImgPath = jobApplicationDto.ImgPath;
 
             var jobApplication = _mapper.Map<JobApplication>(jobApplication1);
             var jobApplicationResult = await _jobApplicationService.Add(jobApplication);
@@ -64,6 +65,18 @@ namespace ITJobSearch.API.Controllers
             if (jobApplicationResult == null) return BadRequest();
 
             return Ok(_mapper.Map<JobApplication>(jobApplicationResult));
+        }
+
+        [HttpGet("{email}")]
+        public async Task<IActionResult> GetJobApplicationsForUser(string email)
+        {
+            var tempUser = await _userManager.FindByEmailAsync(email);
+
+            if (tempUser == null) return NotFound();
+
+            var applications = await _jobApplicationService.GetByUserId(tempUser.Id);
+
+            return Ok(applications);
         }
 
         //[HttpPut("{id:int}")]
