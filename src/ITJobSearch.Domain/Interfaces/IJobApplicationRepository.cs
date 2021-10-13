@@ -13,5 +13,7 @@ namespace ITJobSearch.Domain.Interfaces
         new Task<JobApplication> GetById(int id);
 
         Task<List<JobApplication>> GetByUserId(string id);
+
+        Task<List<JobApplication>> GetJobApplicationsByJobOfferId(int jobofferid);
     }
 }

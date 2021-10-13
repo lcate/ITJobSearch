@@ -41,6 +41,11 @@ namespace ITJobSearch.Domain.Services
             return await _jobOfferRepository.GetById(id);
         }
 
+        public async Task<List<JobOffer>> GetJobOffersByCompanyId(int companyid)
+        {
+            return await _jobOfferRepository.GetJobOffersByCompanyId(companyid);
+        }
+
         public async Task<bool> Remove(JobOffer jobOffer)
         {
             await _jobOfferRepository.Remove(jobOffer);

@@ -13,20 +13,23 @@ using System.Threading.Tasks;
 
 namespace ITJobSearch.API.Controllers
 {
-    [Route("/api/jobapplications")]
+    [Route("/api/[controller]")]
     public class JobApplicationController : MainController
     {
         private readonly IJobApplicationService _jobApplicationService;
+        private readonly IJobOfferService _jobOfferService;
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
 
         public JobApplicationController(IMapper mapper,
                                     IJobApplicationService jobApplicationService,
+                                    IJobOfferService jobOfferService,
                                     UserManager<AppUser> userManager)
         {
             _mapper = mapper;
             _jobApplicationService = jobApplicationService;
             _userManager = userManager;
+            _jobOfferService = jobOfferService;
         }
 
         [HttpGet]
@@ -77,6 +80,21 @@ namespace ITJobSearch.API.Controllers
             var applications = await _jobApplicationService.GetByUserId(tempUser.Id);
 
             return Ok(applications);
+        }
+
+        [HttpGet("joboffer/{jobofferid:int}")]
+        public async Task<IActionResult> GetJobApplicationsByJobOfferId(int jobOfferId)
+        {
+            var jobApplications = await _jobApplicationService.GetJobApplicationsByJobOfferId(jobOfferId);
+
+            if (jobApplications == null) return NotFound();
+
+            foreach (var jobApplication in jobApplications)
+            {
+                jobApplication.User = await _userManager.FindByIdAsync(jobApplication.UserId);
+            }
+
+            return Ok(jobApplications);
         }
 
         //[HttpPut("{id:int}")]

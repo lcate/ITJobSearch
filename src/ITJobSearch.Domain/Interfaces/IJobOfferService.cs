@@ -13,5 +13,6 @@ namespace ITJobSearch.Domain.Interfaces
         Task<JobOffer> Add(JobOffer jobOffer);
         Task<JobOffer> Update(JobOffer jobOffer);
         Task<bool> Remove(JobOffer jobOffer);
+        Task<List<JobOffer>> GetJobOffersByCompanyId(int companyid);
     }
 }

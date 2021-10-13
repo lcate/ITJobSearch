@@ -16,7 +16,7 @@ namespace ITJobSearch.Infrastructure.Repositories
 
         public override async Task<List<JobOffer>> GetAll()
         {
-            var jobOffers = await Db.JobOffers.Include(b => b.Company)
+            List<JobOffer> jobOffers = await Db.JobOffers.Include(b => b.Company)
                 .OrderBy(c => c.Id)
                 .ToListAsync();
             return jobOffers;
@@ -24,11 +24,18 @@ namespace ITJobSearch.Infrastructure.Repositories
 
         public override async Task<JobOffer> GetById(int id)
         {
-            var k = await Db.JobOffers.Include(b => b.Company)
+            JobOffer jobOffer = await Db.JobOffers.Include(b => b.Company)
                 .Where(b => b.Id == id)
                 .FirstOrDefaultAsync();
-            return k;
+            return jobOffer;
         }
 
+        public async Task<List<JobOffer>> GetJobOffersByCompanyId(int companyid)
+        {
+            List<JobOffer> jobOffers = await Db.JobOffers
+                .Where(b => b.CompanyId == companyid)
+                .ToListAsync();
+            return jobOffers;
+        }
     }
 }

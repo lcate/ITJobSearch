@@ -16,26 +16,38 @@ namespace ITJobSearch.Infrastructure.Repositories
 
         public override async Task<List<JobApplication>> GetAll()
         {
-            var jobApplications = await Db.JobApplications.Include(b => b.JobOffer)
-                .OrderBy(c => c.Id)
-                .ToListAsync();
+            List<JobApplication> jobApplications = await Db.JobApplications
+                                                        .Include(b => b.JobOffer)
+                                                        .OrderBy(c => c.Id)
+                                                        .ToListAsync();
             return jobApplications;
         }
 
         public override async Task<JobApplication> GetById(int id)
         {
-            var k = await Db.JobApplications.Include(b => b.JobOffer)
-                .Where(b => b.Id == id)
-                .FirstOrDefaultAsync();
-            return k;
+            JobApplication jobApplication = await Db.JobApplications
+                                            .Include(b => b.JobOffer)
+                                            .Where(b => b.Id == id)
+                                            .FirstOrDefaultAsync();
+            return jobApplication;
         }
 
         public async Task<List<JobApplication>> GetByUserId(string id)
         {
-            var k = await Db.JobApplications
-                .Where(b => b.UserId == id)
-                .ToListAsync();
-            return k;
+            List<JobApplication> jobApplications = await Db.JobApplications
+                                                            .Where(b => b.UserId == id)
+                                                            .ToListAsync();
+            return jobApplications;
         }
+
+        public async Task<List<JobApplication>> GetJobApplicationsByJobOfferId(int jobofferid)
+        {
+            List<JobApplication> jobApplications = await Db.JobApplications.Include(ja => ja.JobOffer)
+                                                    .ThenInclude(jo => jo.Company)
+                                                    .Where(ja => ja.JobOfferId == jobofferid)
+                                                    .ToListAsync();
+            return jobApplications;
+        }
+
     }
 }

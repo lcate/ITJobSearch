@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ITJobSearch.API.Controllers
 {
-    [Route("/api/joboffers")]
+    [Route("/api/[controller]")]
     public class JobOffersController : MainController
     {
         private readonly IJobOfferService _jobOfferService;
@@ -101,6 +101,16 @@ namespace ITJobSearch.API.Controllers
             if (jobOffer == null) return Ok(false);
 
             return Ok(true);
+        }
+
+        [HttpGet("company/{companyid}")]
+        public async Task<IActionResult> GetJobOffersForCompany(int companyid)
+        {
+            var jobOffers = await _jobOfferService.GetJobOffersByCompanyId(companyid);
+
+            if (jobOffers == null) return NotFound();
+
+            return Ok(jobOffers);
         }
     }
 }
