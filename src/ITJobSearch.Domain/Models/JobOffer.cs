@@ -14,6 +14,10 @@ namespace ITJobSearch.Domain.Models
 
         public string WorkHours { get; set; }
 
+        public string Experience { get; set; }
+
+        public string WorkType { get; set; }
+
         public int CompanyId { get; set; }
 
         public Company Company { get; set; }

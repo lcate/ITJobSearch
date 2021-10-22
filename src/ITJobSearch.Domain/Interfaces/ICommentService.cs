@@ -13,5 +13,6 @@ namespace ITJobSearch.Domain.Interfaces
         Task<Comment> Add(Comment comment);
         Task<Comment> Update(Comment comment);
         Task<bool> Remove(Comment comment);
+        Task<List<Comment>> GetCommentsByJobApplicationsId(int jobApplicationId);
     }
 }

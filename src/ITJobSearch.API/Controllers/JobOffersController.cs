@@ -3,6 +3,7 @@ using ITJobSearch.API.Controllers.Dtos;
 using ITJobSearch.Domain.Interfaces;
 using ITJobSearch.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,17 @@ namespace ITJobSearch.API.Controllers
         private readonly IJobOfferService _jobOfferService;
         private readonly ICompanyService _companyService;
         private readonly IMapper _mapper;
+        private readonly UserManager<AppUser> _userManager;
 
         public JobOffersController(IMapper mapper,
                                     IJobOfferService jobOfferService,
+                                    UserManager<AppUser> userManager,
                                     ICompanyService companyService)
         {
             _mapper = mapper;
             _jobOfferService = jobOfferService;
             _companyService = companyService;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -32,7 +36,13 @@ namespace ITJobSearch.API.Controllers
         {
             var jobOffers = await _jobOfferService.GetAll();
 
-            return Ok(_mapper.Map<IEnumerable<JobOfferResultDto>>(jobOffers));
+            foreach (JobOffer jobOffer in jobOffers)
+            {
+                var user = await _userManager.FindByIdAsync(jobOffer.Company.UserId);
+                jobOffer.Company.User = user;
+            }
+
+            return Ok(jobOffers);
         }
 
         [HttpGet("{id:int}")]
@@ -71,6 +81,8 @@ namespace ITJobSearch.API.Controllers
             jo.Position = jobOfferDto.Position;
             jo.Salary = jobOfferDto.Salary;
             jo.WorkHours = jobOfferDto.WorkHours;
+            jo.WorkType = jobOfferDto.WorkType;
+            jo.Experience = jobOfferDto.Experience;
 
             //var jobOffer = _mapper.Map<JobOffer>(jobOfferDto);
             var jobOfferResult = await _jobOfferService.Update(jo);
@@ -109,6 +121,12 @@ namespace ITJobSearch.API.Controllers
             var jobOffers = await _jobOfferService.GetJobOffersByCompanyId(companyid);
 
             if (jobOffers == null) return NotFound();
+
+            foreach(JobOffer jobOffer in jobOffers)
+            {
+                var user = await _userManager.FindByIdAsync(jobOffer.Company.UserId);
+                jobOffer.Company.User = user;
+            }
 
             return Ok(jobOffers);
         }

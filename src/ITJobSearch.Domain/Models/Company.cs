@@ -14,8 +14,6 @@ namespace ITJobSearch.Domain.Models
 
         public string AboutUs { get; set; }
 
-        public string Logo { get; set; }
-
         public string UserId { get; set; }
 
         public AppUser User { get; set; }

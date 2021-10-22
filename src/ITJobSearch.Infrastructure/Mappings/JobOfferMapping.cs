@@ -1,9 +1,6 @@
 ﻿using ITJobSearch.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ITJobSearch.Infrastructure.Mappings
 {
@@ -15,19 +12,27 @@ namespace ITJobSearch.Infrastructure.Mappings
 
             builder.Property(c => c.Position)
                 .IsRequired()
+                .HasColumnType("varchar(150)");
+
+            builder.Property(c => c.Experience)
+                .IsRequired()
                 .HasColumnType("varchar(100)");
 
-            builder.Property(c => c.Description)
+            builder.Property(c => c.WorkType)
                 .IsRequired()
                 .HasColumnType("varchar(100)");
 
             builder.Property(c => c.Salary)
                 .IsRequired()
                 .HasColumnType("varchar(100)");
-
+            
             builder.Property(c => c.WorkHours)
                 .IsRequired()
                 .HasColumnType("varchar(100)");
+
+            builder.Property(c => c.Description)
+                .IsRequired()
+                .HasColumnType("varchar(500)");
 
             builder.Property(c => c.CompanyId)
                 .IsRequired()

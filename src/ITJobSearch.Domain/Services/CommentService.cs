@@ -17,34 +17,48 @@ namespace ITJobSearch.Domain.Services
             _commentRepository = commentRepository;
         }
 
-        public Task<Comment> Add(Comment comment)
+        public async Task<Comment> Add(Comment comment)
         {
-            throw new NotImplementedException();
+            if (_commentRepository.Search(c => c.Id == comment.Id).Result.Any())
+                return null;
+
+            await _commentRepository.Add(comment);
+            return comment;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _commentRepository?.Dispose();
         }
 
-        public Task<IEnumerable<Comment>> GetAll()
+        public async Task<IEnumerable<Comment>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _commentRepository.GetAll();
         }
 
-        public Task<Comment> GetById(int id)
+        public async Task<Comment> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _commentRepository.GetById(id);
         }
 
-        public Task<bool> Remove(Comment comment)
+        public async Task<List<Comment>> GetCommentsByJobApplicationsId(int jobApplicationId)
         {
-            throw new NotImplementedException();
+            return await _commentRepository.GetCommentsByJobApplicationsId(jobApplicationId);
         }
 
-        public Task<Comment> Update(Comment comment)
+        public async Task<bool> Remove(Comment comment)
         {
-            throw new NotImplementedException();
+            await _commentRepository.Remove(comment);
+            return true;
+        }
+
+        public async Task<Comment> Update(Comment comment)
+        {
+            if (!_commentRepository.Search(c => c.Id == comment.Id).Result.Any())
+                return null;
+
+            await _commentRepository.Update(comment);
+            return comment;
         }
     }
 }

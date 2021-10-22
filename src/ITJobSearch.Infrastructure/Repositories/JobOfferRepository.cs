@@ -32,7 +32,7 @@ namespace ITJobSearch.Infrastructure.Repositories
 
         public async Task<List<JobOffer>> GetJobOffersByCompanyId(int companyid)
         {
-            List<JobOffer> jobOffers = await Db.JobOffers
+            List<JobOffer> jobOffers = await Db.JobOffers.Include(jo => jo.Company)
                 .Where(b => b.CompanyId == companyid)
                 .ToListAsync();
             return jobOffers;

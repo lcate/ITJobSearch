@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ITJobSearch.API.Controllers.Dtos;
 using ITJobSearch.API.Dtos;
+using ITJobSearch.API.Dtos.JobApplications;
 using ITJobSearch.Domain.Interfaces;
 using ITJobSearch.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -40,12 +41,14 @@ namespace ITJobSearch.API.Controllers
             return Ok(jobApplications);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("byid/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
             var jobApplication = await _jobApplicationService.GetById(id);
 
             if (jobApplication == null) return NotFound();
+
+            jobApplication.User = await _userManager.FindByIdAsync(jobApplication.UserId);
 
             return Ok(jobApplication);
         }
@@ -73,28 +76,44 @@ namespace ITJobSearch.API.Controllers
         [HttpGet("{email}")]
         public async Task<IActionResult> GetJobApplicationsForUser(string email)
         {
-            var tempUser = await _userManager.FindByEmailAsync(email);
+            AppUser tempUser = await _userManager.FindByEmailAsync(email);
 
             if (tempUser == null) return NotFound();
 
-            var applications = await _jobApplicationService.GetByUserId(tempUser.Id);
+            List<JobApplication> jobApplications = await _jobApplicationService.GetByUserId(tempUser.Id);
 
-            return Ok(applications);
+            foreach (JobApplication jobApplication in jobApplications)
+            {
+                jobApplication.User = tempUser;
+            }
+
+            return Ok(jobApplications);
         }
 
         [HttpGet("joboffer/{jobofferid:int}")]
         public async Task<IActionResult> GetJobApplicationsByJobOfferId(int jobOfferId)
         {
-            var jobApplications = await _jobApplicationService.GetJobApplicationsByJobOfferId(jobOfferId);
+            List<JobApplication> jobApplications = await _jobApplicationService.GetJobApplicationsByJobOfferId(jobOfferId);
 
             if (jobApplications == null) return NotFound();
 
-            foreach (var jobApplication in jobApplications)
+            foreach (JobApplication jobApplication in jobApplications)
             {
                 jobApplication.User = await _userManager.FindByIdAsync(jobApplication.UserId);
             }
 
             return Ok(jobApplications);
+        }
+
+        [HttpPut("updatestatus")]
+        public async Task<IActionResult> UpdateStatusForJobApplication(UpdateStatusDto updateStatusDto)
+        {
+            JobApplication jobApplication = await _jobApplicationService.GetById(updateStatusDto.JobApplicationId);
+            jobApplication.Status = updateStatusDto.NewStatus;
+
+            await _jobApplicationService.Update(jobApplication);
+            
+            return Ok(jobApplication);
         }
 
         //[HttpPut("{id:int}")]

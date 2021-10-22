@@ -9,6 +9,8 @@ namespace ITJobSearch.Domain.Models
     {
         public string FullName { get; set; }
 
+        public string ProfilePicture { get; set; }
+
         public DateTime DateCreated { get; set; }
 
         public DateTime DateModified { get; set; }

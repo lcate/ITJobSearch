@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ITJobSearch.API.Controllers.Dtos;
+using ITJobSearch.API.Dtos.User;
 using ITJobSearch.API.Enums;
 using ITJobSearch.API.Model;
 using ITJobSearch.API.Model.BindingModel;
@@ -70,7 +71,7 @@ namespace ITJobSearch.API.Controllers
                     return await Task.FromResult(new ResponseModel(ResponseCode.Error, "Role does not exist", null));
                 }
 
-                var user = new AppUser() { FullName = model.FullName, Email = model.Email, UserName = model.Email, DateCreated = DateTime.UtcNow, DateModified = DateTime.UtcNow };
+                var user = new AppUser() { FullName = model.FullName, ProfilePicture = model.ProfilePicture, Email = model.Email, UserName = model.Email, DateCreated = DateTime.UtcNow, DateModified = DateTime.UtcNow };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -79,12 +80,12 @@ namespace ITJobSearch.API.Controllers
                     Company companyToAdd = new Company();
                     if (model.Role == "Company")
                     {
-                        companyToAdd = new Company() { Name = model.FullName, WebURL = model.WebURL, Logo = model.Logo, UserId = tempUser.Id };
+                        companyToAdd = new Company() { Name = model.FullName, WebURL = model.WebURL, UserId = tempUser.Id };
                         companyToAdd.Linkedin = model.Linkedin;
                         companyToAdd.AboutUs = model.AboutUs;
                         await _companiesService.Add(companyToAdd);
                     }
-                    var userResult = new UserDTO(model.FullName, model.Email, model.Email, DateTime.UtcNow, model.Role);
+                    var userResult = new UserDTO(model.FullName, model.Email, model.Email, DateTime.UtcNow, model.ProfilePicture, model.Role);
                     userResult.CompanyId = companyToAdd.Id;
                     return await Task.FromResult(new ResponseModel(ResponseCode.OK, "User has been registered.", userResult));
                 }
@@ -110,7 +111,7 @@ namespace ITJobSearch.API.Controllers
                 {
                     var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
 
-                    allUserDTO.Add(new UserDTO(user.FullName, user.Email, user.UserName, user.DateCreated, role));
+                    allUserDTO.Add(new UserDTO(user.FullName, user.Email, user.UserName, user.DateCreated, user.ProfilePicture, role));
                 }
                 return await Task.FromResult(new ResponseModel(ResponseCode.OK, "", allUserDTO));
             } catch(Exception ex)
@@ -140,7 +141,7 @@ namespace ITJobSearch.API.Controllers
                     {
                         AppUser appUser = await _userManager.FindByEmailAsync(model.Email);
                         string role = (await _userManager.GetRolesAsync(appUser)).FirstOrDefault();
-                        UserDTO user = new UserDTO(appUser.FullName, appUser.Email, appUser.UserName, appUser.DateCreated, role);
+                        UserDTO user = new UserDTO(appUser.FullName, appUser.Email, appUser.UserName, appUser.DateCreated, appUser.ProfilePicture, role);
                         user.Token = GenerateToken(appUser, role);
                         if (role == "Company")
                         {
@@ -221,6 +222,25 @@ namespace ITJobSearch.API.Controllers
             };
             var token = jwtTokenHandler.CreateToken(tokenDescriptor);
             return jwtTokenHandler.WriteToken(token);
+        }
+
+        [HttpPut("update/{email}")]
+        public async Task<IActionResult> Update(string email, UserEditDto userEditDto)
+        {
+            if (email != userEditDto.Email) return BadRequest();
+
+            if (!ModelState.IsValid) return BadRequest();
+
+            AppUser user = await _userManager.FindByEmailAsync(userEditDto.Email);
+
+            user.ProfilePicture = userEditDto.ProfilePicture;
+            user.FullName = userEditDto.Name;
+
+            await _userManager.UpdateAsync(user);
+
+            UserDTO userDto = new UserDTO(user.FullName, user.Email, user.UserName, user.DateCreated, user.ProfilePicture, "User");
+            userDto.Token = GenerateToken(user, "User");
+            return Ok(userDto);
         }
 
     }

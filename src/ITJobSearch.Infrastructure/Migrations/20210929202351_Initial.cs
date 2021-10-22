@@ -27,6 +27,7 @@ namespace ITJobSearch.Infrastructure.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateModified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -165,7 +166,6 @@ namespace ITJobSearch.Infrastructure.Migrations
                     WebURL = table.Column<string>(type: "varchar(500)", nullable: false),
                     Linkedin = table.Column<string>(type: "varchar(300)", nullable: false),
                     AboutUs = table.Column<string>(type: "varchar(500)", nullable: false),
-                    Logo = table.Column<string>(type: "varchar(500)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -185,9 +185,11 @@ namespace ITJobSearch.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Position = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Salary = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Description = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Position = table.Column<string>(type: "varchar(150)", nullable: false),
+                    Experience = table.Column<string>(type: "varchar(100)", nullable: false),
+                    WorkType = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Salary = table.Column<string>(type: "varchar(100)", nullable: true),
+                    Description = table.Column<string>(type: "varchar(500)", nullable: true),
                     WorkHours = table.Column<string>(type: "varchar(100)", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -247,7 +249,7 @@ namespace ITJobSearch.Infrastructure.Migrations
                         column: x => x.JobOfferId,
                         principalTable: "JobOffers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -283,8 +285,10 @@ namespace ITJobSearch.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Message = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(250)", nullable: true),
+                    File = table.Column<string>(type: "nvarchar(250)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     JobApplicationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

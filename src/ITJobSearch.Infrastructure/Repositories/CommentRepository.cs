@@ -18,6 +18,25 @@ namespace ITJobSearch.Infrastructure.Repositories
         {
             return await Search(b => b.JobApplicationId == jobApplicationId);
         }
+        public override async Task<List<Comment>> GetAll()
+        {
+            return await Db.Comments.Include(b => b.JobApplication)
+                .OrderBy(c => c.Id)
+                .ToListAsync();
+        }
 
+        public override async Task<Comment> GetById(int id)
+        {
+            return await Db.Comments
+                .Where(b => b.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Comment>> GetCommentsByJobApplicationsId(int jobApplicationId)
+        {
+            return await Db.Comments.Include(c => c.JobApplication)
+                            .Where(c => c.JobApplicationId == jobApplicationId)
+                            .ToListAsync();
+        }
     }
 }

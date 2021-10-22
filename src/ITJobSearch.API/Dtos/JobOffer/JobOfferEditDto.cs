@@ -18,6 +18,12 @@ namespace ITJobSearch.API.Controllers.Dtos
         public string Position { get; set; }
 
         [Required(ErrorMessage = "The field {0} is required")]
+        public string Experience { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is required")]
+        public string WorkType { get; set; }
+
+        [Required(ErrorMessage = "The field {0} is required")]
         public string Description { get; set; }
 
         public string Salary { get; set; }

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using ITJobSearch.API.Controllers.Dtos;
+using ITJobSearch.API.Model.DTO;
 using ITJobSearch.Domain.Interfaces;
 using ITJobSearch.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,12 +18,15 @@ namespace ITJobSearch.API.Controllers
     {
         private readonly ICompanyService _companyService;
         private readonly IMapper _mapper;
+        private readonly UserManager<AppUser> _userManager;
 
         public CompaniesController(IMapper mapper,
+                                    UserManager<AppUser> userManager,
                                     ICompanyService companyService)
         {
             _mapper = mapper;
             _companyService = companyService;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -38,6 +43,10 @@ namespace ITJobSearch.API.Controllers
             var company = await _companyService.GetById(id);
 
             if (company == null) return NotFound();
+
+            AppUser user = await _userManager.FindByIdAsync(company.UserId);
+
+            company.User = user;
 
             return Ok(company);
         }
@@ -62,9 +71,27 @@ namespace ITJobSearch.API.Controllers
 
             if (!ModelState.IsValid) return BadRequest();
 
-            await _companyService.Update(_mapper.Map<Company>(companyDto));
+            Company company = await _companyService.GetById(id);
 
-            return Ok(companyDto);
+            AppUser user = await _userManager.FindByIdAsync(company.UserId);
+
+            company.Name = companyDto.Name;
+            company.WebURL = companyDto.URL;
+            company.Linkedin = companyDto.Linkedin;
+            company.AboutUs = companyDto.AboutUs;
+
+            await _companyService.Update(company);
+
+            user.ProfilePicture = companyDto.ProfilePicture;
+            user.FullName = companyDto.Name;
+
+            await _userManager.UpdateAsync(user);
+            company.User = user;
+
+            UserDTO userDto = new UserDTO(user.FullName, user.Email, user.UserName, user.DateCreated, user.ProfilePicture, "Company");
+            userDto.CompanyId = company.Id;
+
+            return Ok(userDto);
         }
     }
 }

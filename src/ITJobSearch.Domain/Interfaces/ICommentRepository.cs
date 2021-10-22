@@ -11,5 +11,8 @@ namespace ITJobSearch.Domain.Interfaces
         new Task<List<Comment>> GetAll();
 
         new Task<Comment> GetById(int id);
+
+        Task<List<Comment>> GetCommentsByJobApplicationsId(int jobApplicationId);
+
     }
 }

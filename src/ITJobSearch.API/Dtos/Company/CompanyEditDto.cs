@@ -16,7 +16,11 @@ namespace ITJobSearch.API.Controllers.Dtos
 
         public string URL { get; set; }
 
-        public string Logo { get; set; }
+        public string Linkedin { get; set; }
+
+        public string AboutUs { get; set; }
+
+        public string ProfilePicture { get; set; }
 
         public string UserId { get; set; }
     }
