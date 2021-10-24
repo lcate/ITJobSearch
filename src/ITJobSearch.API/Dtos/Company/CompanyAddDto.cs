@@ -15,9 +15,13 @@ namespace ITJobSearch.API.Controllers.Dtos
 
         public string UserId { get; set; }
 
-        public string AboutUs { get; set; }
+        public int EmployeesFrom { get; set; }
 
-        public string Linkedin { get; set; }
+        public int EmployeesTo { get; set; }
+
+        public int YearFounded { get; set; }
+
+        public string Locations { get; set; }
 
     }
 }

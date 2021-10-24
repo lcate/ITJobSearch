@@ -52,6 +52,21 @@ namespace ITJobSearch.Infrastructure.Migrations
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("AboutMe")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Linkedin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -136,10 +151,16 @@ namespace ITJobSearch.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AboutUs")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("EmployeesFrom")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Linkedin")
+                    b.Property<string>("EmployeesTo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("YearFounded")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Locations")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

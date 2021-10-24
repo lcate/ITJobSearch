@@ -77,13 +77,20 @@ namespace ITJobSearch.API.Controllers
 
             company.Name = companyDto.Name;
             company.WebURL = companyDto.URL;
-            company.Linkedin = companyDto.Linkedin;
-            company.AboutUs = companyDto.AboutUs;
+            company.EmployeesFrom = companyDto.EmployeesFrom;
+            company.EmployeesTo = companyDto.EmployeesTo;
+            company.YearFounded = companyDto.YearFounded;
+            company.Locations = companyDto.Locations;
 
             await _companyService.Update(company);
 
             user.ProfilePicture = companyDto.ProfilePicture;
             user.FullName = companyDto.Name;
+            user.Linkedin = companyDto.Linkedin;
+            user.AboutMe = companyDto.AboutUs;
+            user.Address = companyDto.Address;
+            user.PhoneNumber = companyDto.PhoneNumber;
+            user.City = companyDto.City;
 
             await _userManager.UpdateAsync(user);
             company.User = user;

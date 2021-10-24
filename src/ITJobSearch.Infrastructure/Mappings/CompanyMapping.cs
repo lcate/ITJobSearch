@@ -25,11 +25,19 @@ namespace ITJobSearch.Infrastructure.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(450)");
 
-            builder.Property(c => c.Linkedin)
+            builder.Property(c => c.YearFounded)
                 .IsRequired()
-                .HasColumnType("varchar(300)");
+                .HasColumnType("int");
 
-            builder.Property(c => c.AboutUs)
+            builder.Property(c => c.EmployeesFrom)
+                .IsRequired()
+                .HasColumnType("int");
+
+            builder.Property(c => c.EmployeesTo)
+                .IsRequired()
+                .HasColumnType("int");
+
+            builder.Property(c => c.Locations)
                 .IsRequired()
                 .HasColumnType("varchar(500)");
 

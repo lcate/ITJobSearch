@@ -26,7 +26,7 @@ namespace ITJobSearch.Infrastructure.Repositories
         public override async Task<JobApplication> GetById(int id)
         {
             JobApplication jobApplication = await Db.JobApplications
-                                            .Include(b => b.JobOffer)
+                                            .Include(b => b.JobOffer).ThenInclude(j => j.Company)
                                             .Where(b => b.Id == id)
                                             .FirstOrDefaultAsync();
             return jobApplication;
@@ -34,7 +34,7 @@ namespace ITJobSearch.Infrastructure.Repositories
 
         public async Task<List<JobApplication>> GetByUserId(string id)
         {
-            List<JobApplication> jobApplications = await Db.JobApplications
+            List<JobApplication> jobApplications = await Db.JobApplications.Include(jo => jo.JobOffer).ThenInclude(j => j.Company)
                                                             .Where(b => b.UserId == id)
                                                             .ToListAsync();
             return jobApplications;

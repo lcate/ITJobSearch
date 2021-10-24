@@ -48,6 +48,7 @@ namespace ITJobSearch.API.Controllers
 
             if (jobApplication == null) return NotFound();
 
+            jobApplication.JobOffer.Company.User = await _userManager.FindByIdAsync(jobApplication.JobOffer.Company.UserId);
             jobApplication.User = await _userManager.FindByIdAsync(jobApplication.UserId);
 
             return Ok(jobApplication);
@@ -82,10 +83,15 @@ namespace ITJobSearch.API.Controllers
 
             List<JobApplication> jobApplications = await _jobApplicationService.GetByUserId(tempUser.Id);
 
-            foreach (JobApplication jobApplication in jobApplications)
+            foreach(JobApplication jobApplication in jobApplications)
             {
-                jobApplication.User = tempUser;
+                jobApplication.JobOffer.Company.User = await _userManager.FindByIdAsync(jobApplication.JobOffer.Company.UserId);
             }
+
+            //foreach (JobApplication jobApplication in jobApplications)
+            //{
+            //    jobApplication.User = tempUser;
+            //}
 
             return Ok(jobApplications);
         }

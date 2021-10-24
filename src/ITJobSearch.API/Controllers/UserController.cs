@@ -71,7 +71,7 @@ namespace ITJobSearch.API.Controllers
                     return await Task.FromResult(new ResponseModel(ResponseCode.Error, "Role does not exist", null));
                 }
 
-                var user = new AppUser() { FullName = model.FullName, ProfilePicture = model.ProfilePicture, Email = model.Email, UserName = model.Email, DateCreated = DateTime.UtcNow, DateModified = DateTime.UtcNow };
+                var user = new AppUser() { FullName = model.FullName, Email = model.Email, UserName = model.Email, DateCreated = DateTime.UtcNow, DateModified = DateTime.UtcNow, Linkedin = model.Linkedin};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -81,11 +81,11 @@ namespace ITJobSearch.API.Controllers
                     if (model.Role == "Company")
                     {
                         companyToAdd = new Company() { Name = model.FullName, WebURL = model.WebURL, UserId = tempUser.Id };
-                        companyToAdd.Linkedin = model.Linkedin;
-                        companyToAdd.AboutUs = model.AboutUs;
+                        companyToAdd.YearFounded = model.YearFounded;
+                        companyToAdd.Locations = string.Empty;
                         await _companiesService.Add(companyToAdd);
                     }
-                    var userResult = new UserDTO(model.FullName, model.Email, model.Email, DateTime.UtcNow, model.ProfilePicture, model.Role);
+                    var userResult = new UserDTO(model.FullName, model.Email, model.Email, DateTime.UtcNow, tempUser.ProfilePicture, model.Role);
                     userResult.CompanyId = companyToAdd.Id;
                     return await Task.FromResult(new ResponseModel(ResponseCode.OK, "User has been registered.", userResult));
                 }
@@ -234,7 +234,13 @@ namespace ITJobSearch.API.Controllers
             AppUser user = await _userManager.FindByEmailAsync(userEditDto.Email);
 
             user.ProfilePicture = userEditDto.ProfilePicture;
-            user.FullName = userEditDto.Name;
+            user.FullName = userEditDto.FullName;
+            user.DateOfBirth = userEditDto.DateOfBirth;
+            user.Linkedin = userEditDto.Linkedin;
+            user.AboutMe = userEditDto.AboutMe;
+            user.Address = userEditDto.Address;
+            user.PhoneNumber = userEditDto.PhoneNumber;
+            user.City = userEditDto.City;
 
             await _userManager.UpdateAsync(user);
 

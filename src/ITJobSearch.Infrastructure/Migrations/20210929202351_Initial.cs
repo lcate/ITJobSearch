@@ -28,6 +28,11 @@ namespace ITJobSearch.Infrastructure.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AboutMe = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Linkedin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateofBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateModified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -163,9 +168,11 @@ namespace ITJobSearch.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "varchar(150)", nullable: false),
-                    WebURL = table.Column<string>(type: "varchar(500)", nullable: false),
-                    Linkedin = table.Column<string>(type: "varchar(300)", nullable: false),
-                    AboutUs = table.Column<string>(type: "varchar(500)", nullable: false),
+                    WebURL = table.Column<string>(type: "varchar(500)", nullable: true),
+                    EmployeesFrom = table.Column<int>(type: "int", nullable: true),
+                    EmployeesTo = table.Column<int>(type: "int", nullable: true),
+                    YearFounded = table.Column<int>(type: "int", nullable: true),
+                    Locations = table.Column<string>(type: "varchar(500)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>

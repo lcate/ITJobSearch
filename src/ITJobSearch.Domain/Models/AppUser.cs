@@ -11,6 +11,16 @@ namespace ITJobSearch.Domain.Models
 
         public string ProfilePicture { get; set; }
 
+        public string Linkedin { get; set; }
+
+        public string AboutMe { get; set; }
+
+        public string Address { get; set; }
+
+        public string City { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
+
         public DateTime DateCreated { get; set; }
 
         public DateTime DateModified { get; set; }

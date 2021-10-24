@@ -52,7 +52,9 @@ namespace ITJobSearch.API.Controllers
 
             if (jobOffer == null) return NotFound();
 
-            return Ok(_mapper.Map<JobOfferResultDto>(jobOffer));
+            jobOffer.Company.User = await _userManager.FindByIdAsync(jobOffer.Company.UserId);
+
+            return Ok(jobOffer);
         }
 
         [HttpPost]
