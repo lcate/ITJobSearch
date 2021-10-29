@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITJobSearch.Domain", "src\I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITJobSearch.Infrastructure", "src\ITJobSearch.Infrastructure\ITJobSearch.Infrastructure.csproj", "{0D3997AE-0A4E-485B-9358-BB65961BE250}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{30169741-3389-4D2E-9DED-33657867611D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1281BEF1-0764-4B55-94B8-2E45288AFAE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -67,11 +67,11 @@ namespace ITJobSearch.API.Controllers
             jobApplication1.ImgPath = jobApplicationDto.ImgPath;
 
             var jobApplication = _mapper.Map<JobApplication>(jobApplication1);
-            var jobApplicationResult = await _jobApplicationService.Add(jobApplication);
-
+            JobApplication jobApplicationResult = await _jobApplicationService.Add(jobApplication);
+            jobApplicationResult.User = await _userManager.FindByIdAsync(jobApplicationResult.UserId);
             if (jobApplicationResult == null) return BadRequest();
 
-            return Ok(_mapper.Map<JobApplication>(jobApplicationResult));
+            return Ok(jobApplicationResult);
         }
 
         [HttpGet("{email}")]

@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\AppDb\**" />
+    <EmbeddedResource Remove="Migrations\AppDb\**" />
+    <None Remove="Migrations\AppDb\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="foolproof" Version="0.9.4518" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.16" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
@@ -23,10 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ITJobSearch.Domain\ITJobSearch.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\AppDb\" />
   </ItemGroup>
 
 </Project>

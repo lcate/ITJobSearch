@@ -87,6 +87,7 @@ namespace ITJobSearch.API.Controllers
                     }
                     var userResult = new UserDTO(model.FullName, model.Email, model.Email, DateTime.UtcNow, tempUser.ProfilePicture, model.Role);
                     userResult.CompanyId = companyToAdd.Id;
+                    userResult.UserId = tempUser.Id;
                     return await Task.FromResult(new ResponseModel(ResponseCode.OK, "User has been registered.", userResult));
                 }
 
@@ -143,6 +144,7 @@ namespace ITJobSearch.API.Controllers
                         string role = (await _userManager.GetRolesAsync(appUser)).FirstOrDefault();
                         UserDTO user = new UserDTO(appUser.FullName, appUser.Email, appUser.UserName, appUser.DateCreated, appUser.ProfilePicture, role);
                         user.Token = GenerateToken(appUser, role);
+                        user.UserId = appUser.Id;
                         if (role == "Company")
                         {
                             var company = await _companiesService.GetCompanyId(appUser.Id);
@@ -241,11 +243,16 @@ namespace ITJobSearch.API.Controllers
             user.Address = userEditDto.Address;
             user.PhoneNumber = userEditDto.PhoneNumber;
             user.City = userEditDto.City;
+            user.Experience = userEditDto.Experience;
+            user.Projects = userEditDto.Projects;
+            user.Languages = userEditDto.Languages;
+            user.Education = userEditDto.Education;
 
             await _userManager.UpdateAsync(user);
 
             UserDTO userDto = new UserDTO(user.FullName, user.Email, user.UserName, user.DateCreated, user.ProfilePicture, "User");
             userDto.Token = GenerateToken(user, "User");
+            userDto.UserId = user.Id;
             return Ok(userDto);
         }
 

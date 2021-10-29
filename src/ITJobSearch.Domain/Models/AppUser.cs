@@ -19,6 +19,14 @@ namespace ITJobSearch.Domain.Models
 
         public string City { get; set; }
 
+        public string Education { get; set; }
+
+        public string Experience { get; set; }
+
+        public string Projects { get; set; }
+
+        public string Languages { get; set; }
+
         public DateTime DateOfBirth { get; set; }
 
         public DateTime DateCreated { get; set; }
